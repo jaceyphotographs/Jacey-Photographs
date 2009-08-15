@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-US">
+<head>
+  <link rel="stylesheet" href="/css/blueprint/screen.css" type="text/css" media="screen, projection">
+  <link rel="stylesheet" href="/css/blueprint/print.css" type="text/css" media="print"> 
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/buttons.css">
+  <!--[if IE]>
+    <link rel="stylesheet" href="static/css/blueprint/ie.css" type="text/css" media="screen, projection">
+  <![endif]--> 
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+  <script type="text/javascript" src="http://jqueryjs.googlecode.com/svn/trunk/plugins/form/jquery.form.js"></script>
+  <script type="text/javascript" src="/js/date.js"></script>
+  
+  {% autoescape on %}
+  
+  <!--Start Twitter JavaScript -->
+  <script type="text/javascript">
+  var twitterUsername = 'jaceyphotos';
+
+  $(document).ready(function() {
+    $.ajax({
+      dataType: 'jsonp',
+      url: "http://twitter.com/statuses/user_timeline/" + twitterUsername + ".json?callback=twitterCallback"
+    });
+  });
+
+  function twitterCallback(data) {
+    var found = false;
+    $.each(data, function(){
+      if (this["text"].indexOf('@') != 0 && !found) {
+        var date = new Date(this["created_at"]);
+        date = date.toString('MMM d, yyyy');
+        //var cur_text = $('#twitter').text;
+        //var markup = $('#twitter').innerHTML;
+        //$('#twitter').text("..." + this["text"]);
+        var oldHTML = document.getElementById('twitter').innerHTML;
+	    var newHTML = "<span class=\"alt twittertext\">" + this["text"] + "</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class=\"link\" href=\"http://www.twitter.com/jaceyphotos\">...twitter.com/jaceyphotos @ " + date + "</a>";
+	    document.getElementById('twitter').innerHTML = newHTML;
+        found = true;
+      }
+    });
+  }
+  </script>
+  <!-- End Twitter JavaScript -->
+  
+  <!--Start Google Analytics -->
+  <!--<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-6800367-1");
+      pageTracker._trackPageview();
+    } catch(err) {}
+  </script>-->
+  <!--End Google Analytics -->
+ 
+  {% block blog_comment_javascript %}{% endblock %}
+  {% block blog_entry_javascript %}{% endblock %}
+  {% block blog_admin_javascript %}{% endblock %}
+  
+  {% endautoescape %}
+
+  <title>{% block title %}Jacey Photographs : Bay Area Newborn, Family, and Dog Photography{% endblock %}</title>
+  <meta name="verify-v1" content="gBERZir7Dgh/ZsocUsIaz3R7T8vmn5Rj76IcalGC6Kg=" />
+</head>
+
+<body>
+
+  <div class="container">
+    
+    <hr/>
+        
+    <div class="span-24 last" style="text-align:center">
+      <a href="/"><img class="logo" src="/images/logo.png"></a>
+    </div>
+    
+    <div class="span-24">
+	  <div class="span-12">&nbsp;</div>
+	  <div class="span-12  last" style="text-align:left"><blockquote><div id="twitter"></div></blockquote></div>
+    </div>
+    
+    <div class="span-24">
+	  <div class="span-7 colborder" style="text-align:center"><a class="link" href="/about/"><img src="/images/about_me.jpg"></a></div>
+	  <!--<div class="span-5 colborder" style="text-align:center"><a class="link" href="/archives/"><img src="/images/session_archives.jpg"></a></div>-->
+	  <div class="span-7 colborder" style="text-align:center"><a class="link" href="/details/"><img src="/images/session_details.jpg"></a></div>
+	  <div class="span-8 last" style="text-align:center"><a class="link" href="/contact/"><img src="/images/contact_me.jpg"></a></div>
+    </div>
+	 
+	<hr/>
+    
+    <div class="span-24" colborder>	  
+	  <hr/>
+    </div>
+    
+    <div class="span-24 colborder">
+
+
+        {% block content %}{% endblock %}
+        {% block post %}{% endblock %}
+        {% block about %}{% endblock %}
+      
+    </div>
+    <br />
+    <hr />
+    <div class="span-8">Photos (c) Jacey Photographs 2008</div>
+    <div class="span-8" style="text-align:center;"><a href="http://feeds.feedburner.com/JaceyPhotographs" rel="alternate" type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" alt="" style="vertical-align:middle;border:0"/></a>&nbsp;<a class="link" href="http://feeds.feedburner.com/JaceyPhotographs" rel="alternate" type="application/rss+xml">RSS</a></div>
+    <div class="span-8 last" style="text-align:right;"><a href="/admin">Admin</a></div>
+    <br />
+    <hr />
+    <br />
+    <!--<div class="span-12"><h4 class="alt">A Website by the URL Whisperer</h4></div>
+    <div class="span-12 last" style="text-align:right;"><a class="link" href="/post/entry">Admin</a></div>
+    <div class="span-12 style="text-align:left;"><img src="http://code.google.com/appengine/images/appengine-noborder-120x30.gif"
+alt="Powered by Google App Engine" /></div>
+    <div class="span-12 last" style="text-align:right;"><a href="http://www.djangoproject.com/"><img src="http://media.djangoproject.com/img/badges/djangosite80x15_grey.gif" border="0" alt="A Django site." title="A Django site." /></a></div>
+    </div>-->
+    
+  </div>
+    
+</body>
+</html>

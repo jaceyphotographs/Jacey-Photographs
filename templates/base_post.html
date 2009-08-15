@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block blog_entry_javascript %}
+
+<script type="text/javascript">
+var itemCount=2
+function additem()
+{
+  var newDiv;
+  newDiv = "<hr />";
+  newDiv += "<input type=\"file\" class=\"title\" name=\"image_" + itemCount.toString() + "\" id=\"image_" + itemCount.toString() + "\" value=\"\" size=\"40\"> ";
+  newDiv += "<br />"
+  newDiv += "<input type=\"text\" class=\"title\" name=\"image_snippet_" + itemCount.toString()  + "\" id=\"image_snippet_" + itemCount.toString() + "\"value=\"\"> <= you can attach a short image snippet here!";
+  var dynamic_item_div = document.getElementById("images");
+  dynamic_item_div.innerHTML += newDiv;
+  itemCount++;
+}
+</script>
+
+<script type="text/javascript">
+function get_object_key()
+{
+  key = window.location.pathname;
+  return key;
+}
+</script>
+
+{% endblock %}
+
+{% block title %}{{ block.super }}{% endblock %}
+
+{% block post %}
+
+<form method="post" action="/admin/post/edit/{{key}}/" enctype="multipart/form-data">
+
+<fieldset>
+<legend>Blog Post</legend>
+
+
+  <p><label for="title">Blog Entry Title</label><br>
+  <input type="text" class="title" name="title" id="title" value="{{ form.title|cut:"<input type=\"text\""|cut:"name=\"title\""|cut:"value=\""|cut:" id=\"id_title\" />"|cut:" " }}"></p>
+  
+  {% for error in form.tags.errors %}
+    <div class="error">{{ error }}</div>
+  {% endfor %}
+  
+  <p><label for="title">Blog Entry Tags</label><br>
+  <input type="text" class="title" name="tags" id="tags" value="{{ form.tags|striptags }}"></p>
+  
+    
+  {% for error in form.description.errors %}
+    <div class="error">{{ error }}</div>
+  {% endfor %}
+  <p><label for="Description">Blog Entry Description</label><br>
+  <span class="title"><textarea name="description" id="description" rows="5" cols="80">{{ form.description|striptags }}</textarea></span></p>
+  
+  {% for error in form.url.errors %}
+    <div class="error">{{ error }}</div>
+  {% endfor %}
+  <p><label for="url">Images & Snippets</label>
+    <div id="images">
+    <input type="file" class="title" name="image_1" id="image_1" value="" size="40">
+    <br />
+    <input type="text" class="title" name="image_snippet_1" id="image_snippet_1" value=""> <= you can attach a short image snippet here!
+    </div>
+  </p>
+
+  <button type="submit" class="button positive">
+    <img src="/css/blueprint/plugins/buttons/icons/knobs/knob_valid_green.png" alt=""/> Submit Entry
+  </button>
+  <a href="javascript:additem();" class="button">
+  <img src="/css/blueprint/plugins/buttons/icons/knobs/knob_add.png" alt=""/>Add Image
+  </a>
+
+</fieldset>
+
+</form>
+
+
+{% endblock %}

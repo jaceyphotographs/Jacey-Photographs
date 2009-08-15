@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }}{% endblock %}
+
+{% block post %}
+
+<div class="24">
+
+<div class="span-11 colborder">
+
+<form method="post" action="{% url jaceyphotographs.views.email_jacey %}">
+
+<fieldset>
+<legend>Email Me</legend>
+
+  {% for error in form.title.errors %}
+    <div class="error">{{ error }}</div>
+  {% endfor %}
+  <p><label for="name">Name</label><br>
+  <input type="text" class="title" name="sender_name" id="sender_name" value=""></p>
+  
+  {% for error in form.tags.errors %}
+    <div class="error">{{ error }}</div>
+  {% endfor %}
+  <p><label for="email">Email</label><br>
+  <input type="text" class="title" name="sender_email" id="sender_email" value=""></p>
+  
+  {% for error in form.tags.errors %}
+    <div class="error">{{ error }}</div>
+  {% endfor %}
+  <p><label for="subject">Subject</label><br>
+  <input type="text" class="title" name="sender_subject" id="sender_subject" value=""></p>
+  
+  {% for error in form.description.errors %}
+    <div class="error">{{ error }}</div>
+  {% endfor %}
+  <p><label for="message">Message</label><br>
+  <textarea name="sender_message" id="sender_message" rows="5" cols="80"></textarea></p>
+
+  <button type="submit" class="button positive">
+    <img src="/css/blueprint/plugins/buttons/icons/tick.png" alt=""/> Send
+  </button>
+
+</fieldset>
+
+</form>
+
+</div>
+<div class="span-12 last">
+  <object type="application/x-shockwave-flash" data="https://clients4.google.com/voice/embed/webCallButton" width="230" height="85"><param name="movie" value="https://clients4.google.com/voice/embed/webCallButton" /><param name="wmode" value="transparent" /><param name="FlashVars" value="id=0eab9ccacbf71fadb7a6ed923f7de95dc6dfbf51&style=0" /></object>
+</div>
+{% endblock %}

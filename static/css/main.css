@@ -1,0 +1,115 @@
+.alt
+{
+	color: #666666;
+	font-family: "Warnock Pro","Goudy Old Style","Palatino","Book Antiqua",Georgia,serif;
+	font-style: italic;
+	font-weight: normal;
+}
+
+.twittertext
+{
+	color: #666666;
+	font-family: "Warnock Pro","Goudy Old Style","Palatino","Book Antiqua",Georgia,serif;
+	font-style: italic;
+	font-weight: normal;
+	font-size:1.2em;
+}
+
+.comment_request
+{
+	color: #666666;
+	font-family: "Warnock Pro","Goudy Old Style","Palatino","Book Antiqua",Georgia,serif;
+	font-style: italic;
+	font-weight: normal;
+	font-size:1.2em;
+}
+
+body
+{
+	background-color: #fff;
+}
+
+.link
+{
+	text-decoration: none;
+	color: #a32265;
+}
+
+.tag
+{
+    text-decoration: none;
+	color: #a32265;
+	font-size:1.5em;
+}
+
+.description
+{
+    text-decoration: none;
+	font-size:1.5em;
+}
+
+.snippet
+{
+    text-decoration: none;
+	font-size:1.5em;
+}
+
+.entry_title
+{
+	text-decoration: none;
+	color: #a32265;
+	font-size:1.5em
+}
+
+.entry_date
+{
+	text-decoration: none;
+	color: #666666;
+}
+
+.blog_description
+{
+	background-color: #fff;
+	border-style: solid;
+	border-width: 0px;
+	border-color: #eee;
+	text-align: center;
+	vertical-align: middle;
+}
+
+blockquote {
+  background: transparent url(/images/start_quote.png) left top no-repeat;
+  
+}
+blockquote div {
+  padding: 0 48px;
+  background: transparent url(/images/end_quote.png) right bottom no-repeat;
+}
+
+.no_background {
+  background: none;
+}
+
+.blog_photo_image {
+   padding:1px;
+   border:5px solid #000;
+   background-color:#eee;
+}
+
+.comment_div_block {
+  border-top:1px solid #eee;
+  border-bottom:1px solid #eee;
+}
+
+.comment_entry_div {
+  border-top:1px solid #eee;
+  border-bottom:1px solid #eee;
+}
+
+.comment_div_button {
+  cursor: pointer;
+  float:right;
+  display:inline;
+}
+
+

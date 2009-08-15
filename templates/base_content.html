@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }}{% endblock %}
+
+{% block blog_comment_javascript %}
+
+  <!--Start Recaptcha Javascript -->
+  <script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
+  <!--End Recaptcha Javascript -->
+  
+  <!--Start Blog Comment Javascript -->
+  
+  <!-- JS for JQuery Div Toggle -->
+  <script type="text/javascript">
+    jQuery(function($) {
+      $('.comment_entry_div').hide();
+      
+      $('.comment_div_link').one('click', openDiv);
+      
+      function openDiv(e) {
+        Recaptcha.destroy();
+        $("#comment_entry_div_" + e.currentTarget.id).slideToggle(1000);
+        Recaptcha.create("6LcBIQUAAAAAAK4t9cXLHuFhw96C1u_JKR6LQFHZ",
+		"recaptcha_div_" + e.currentTarget.id, {
+   		  theme: "clean",
+   		  callback: Recaptcha.focus_response_field
+		});
+
+        $('.comment_div_link').one('click', closeDiv);
+      }
+      
+      function closeDiv(e) {
+        $("#comment_entry_div_" + e.currentTarget.id).slideToggle(1000);
+        Recaptcha.destroy();
+        $('.comment_div_link').one('click', openDiv);
+      }
+    });
+  </script>
+  
+  <!-- JS for JQuery Blog Comment Posting -->
+  <script type="text/javascript">
+  $(document).ready(function() 
+  {
+    var options = {'{% url jaceyphotographs.views.comment_post %}', dataType:'json', success:processJson, beforeSubmit:beforeForm};
+    $('#comment_form').ajaxForm(options);
+  });
+  
+  function beforeForm() 
+  { 
+    $('#comment_submit_button').attr("disabled","disabled");
+    $('.errorlist').remove();
+    $('#emsg').fadeOut('slow');
+    return true; 
+  }
+  
+  function processJson() 
+  { 
+    return true;
+  }
+
+  </script>
+  <!--End Blog Comments Javascript -->
+ 
+{% endblock %}
+
+{% block content %}
+
+{% if entries %}
+  
+  {% for entry in entries.object_list %}
+  <div class="span-24 colborder">
+    
+    <!-- entry title, tags -->
+    <div class="span-12"><h3><a class="entry_title alt" href="/{{ entry.published|date:"Y" }}/{{ entry.published|date:"b" }}/{{ entry.published|date:"d" }}/{{ entry.slug }}">{{ entry.title }}</a></h3></div>
+    <div class="span-12 last" style="text-align:right">
+      <h4>{% for tag in entry.tags %}<a class="tag" href="/tags/{{ tag }}"><span class="alt">{{ tag }}</span></a>{% if not forloop.last %} , {% endif %}{% endfor %} | {{ entry.published|date:"F" }} {{ entry.published|date:"Y" }}</h4>
+    </div>
+    <div class="span-24" style="text-align:center">
+      <p><span class="description">{{ entry.description }}</span></p>
+    </div>
+    <!-- begin image, snippet looping -->
+    {% for image in entry.blog_images %}
+        <div class="span-24 colborder" style="text-align:center"><img class="blog_photo_image" align="middle" src="{{ image.get_absolute_url }}"></div>
+        <div class="span-24 colborder" style="text-align:center"><span class="snippet">{{ image.image_snippet }}</span></div>
+    {% endfor %}
+    <!-- end image, snippet looping -->
+    
+    <!-- start comments -->
+    <div class="span-24" style="textalign:right">
+      {% for comment in entry.blog_comments %}
+      <p><blockquote><div>{{ comment.comment }}</div></blockquote></p><div style="text-align:right"><span class="alt">-- {{ comment.name }} on {{ comment.published }}</span></div>
+      {% if not forloop.last %}<hr>{% endif %}
+      {% endfor %}
+    </div>
+    <!-- end comments -->
+  </div>
+  
+  <div id="comment_div_block_{{ entry.key }}" class="span-24 comment_div_block">
+  
+    <div class="span-24" style="text-align:right">
+    <!-- TODO: less kludgy string ID approach -->
+    <a class="comment_div_link comment_request" id="{{ entry.key }}">add a comment</a>
+    </div>
+    
+    <div class="span-24 comment_entry_div" id="comment_entry_div_{{ entry.key }}">
+    <form id="comment_form" method="post" action="{% url jaceyphotographs.views.comment_post %}">
+  
+    <input type="hidden" id="key" name="key" value="{{  entry.key  }}" />
+    <div class="span-11 colborder" style="text-align:left">
+    <p><label for="title">Name</label><br>
+    <input type="text" class="title" name="name" id="name" value=""></p>
+    <p><label for="title">Email (optional)</label><br>
+    <input type="text" class="title" name="email" id="email" value=""></p>
+    <p><div id="recaptcha_div_{{entry.key}}"></div></p>
+    <p><button id="comment_submit_button" type="submit" class="button positive">
+    <img src="/css/blueprint/plugins/buttons/icons/knobs/knob_valid_green.png" alt=""/> Post Comment
+    </button>
+    </div>
+  
+    <div class="span-12 last" style="text-align:right">
+    <p><label for="comment">Comment</label><br>
+    <textarea name="comment" id="comment" rows="5" cols="80"></textarea></p>
+    </div>
+  
+    </form>
+    </div>
+  </div>
+  <hr />
+  {% endfor %}
+  
+  <!-- pagination links follow -->
+  <div class="span-24">
+    <div class="span-7 colborder" style="text-align:left">
+	{% if entries.has_previous %}
+    <a class="link" href="?page={{ entries.previous_page_number }}"><< Previous Entries</a>
+    {% else %}
+      &nbsp;
+    {% endif %}
+	</div>
+	  
+	<div class="span-8 colborder" style="text-align:center">  
+	<!--{{ entries.number }} of {{ entries.paginator.num_pages }}-->&nbsp;
+	</div>
+	  
+	<div class="span-7 last" style="text-align:right">
+	{% if entries.has_next %}
+    <a class="link" href="?page={{ entries.next_page_number }}">Next Entries >></a>
+    {% else %}
+      &nbsp;
+    {% endif %}
+	</div>
+  </div>
+  <!-- end pagination -->
+  
+{% endif %}
+{% endblock %}
