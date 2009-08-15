@@ -16,7 +16,7 @@ indexes:
   - name: published
     direction: desc
 
-# Unused in query history -- copied from input.
+# Used once in query history.
 - kind: BlogEntry
   properties:
   - name: tags

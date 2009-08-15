@@ -3,7 +3,7 @@
 {% block title %}{{ block.super }}{% endblock %}
 
 {% block blog_comment_javascript %}
-
+  
   <!--Start Recaptcha Javascript -->
   <script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
   <!--End Recaptcha Javascript -->
@@ -14,53 +14,61 @@
   <script type="text/javascript">
     jQuery(function($) {
       $('.comment_entry_div').hide();
-      
-      $('.comment_div_link').one('click', openDiv);
-      
-      function openDiv(e) {
-        Recaptcha.destroy();
-        $("#comment_entry_div_" + e.currentTarget.id).slideToggle(1000);
-        Recaptcha.create("6LcBIQUAAAAAAK4t9cXLHuFhw96C1u_JKR6LQFHZ",
-		"recaptcha_div_" + e.currentTarget.id, {
-   		  theme: "clean",
-   		  callback: Recaptcha.focus_response_field
-		});
-
-        $('.comment_div_link').one('click', closeDiv);
-      }
-      
-      function closeDiv(e) {
-        $("#comment_entry_div_" + e.currentTarget.id).slideToggle(1000);
-        Recaptcha.destroy();
-        $('.comment_div_link').one('click', openDiv);
-      }
+	  Recaptcha.destroy();
     });
+
+ 	function toggleDiv(id) {
+	  var toggled_div = '#comment_entry_div_' + id
+	  if ($(toggled_div).attr("open") == "true") {
+	    closeDiv(id);
+	  } else {
+	    openDiv(id);
+	  }
+	}
+	
+	function openDiv(id) {
+	  var toggled_div = '#comment_entry_div_' + id
+	  $(toggled_div).attr("open", "true");
+	  $(toggled_div).slideToggle(1000);
+      Recaptcha.create("6LcBIQUAAAAAAK4t9cXLHuFhw96C1u_JKR6LQFHZ",
+	    "recaptcha_div_" + id, {
+ 		theme: "clean",
+ 		callback: Recaptcha.focus_response_field
+	  });
+	}
+	
+	function closeDiv(id) {
+	  var toggled_div = '#comment_entry_div_' + id
+      $(toggled_div).attr("open", "false");
+	  $(toggled_div).slideToggle(1000);
+	  Recaptcha.destroy();
+	}
   </script>
   
   <!-- JS for JQuery Blog Comment Posting -->
   <script type="text/javascript">
-  $(document).ready(function() 
+  $(document).ready(function()
   {
     var options = {'{% url jaceyphotographs.views.comment_post %}', dataType:'json', success:processJson, beforeSubmit:beforeForm};
     $('#comment_form').ajaxForm(options);
   });
   
-  function beforeForm() 
-  { 
+  function beforeForm()
+  {
     $('#comment_submit_button').attr("disabled","disabled");
     $('.errorlist').remove();
     $('#emsg').fadeOut('slow');
-    return true; 
-  }
-  
-  function processJson() 
-  { 
     return true;
   }
-
+  
+  function processJson()
+  {
+    return true;
+  }
+  
   </script>
   <!--End Blog Comments Javascript -->
- 
+
 {% endblock %}
 
 {% block content %}
@@ -96,15 +104,15 @@
   </div>
   
   <div id="comment_div_block_{{ entry.key }}" class="span-24 comment_div_block">
-  
+    
     <div class="span-24" style="text-align:right">
     <!-- TODO: less kludgy string ID approach -->
-    <a class="comment_div_link comment_request" id="{{ entry.key }}">add a comment</a>
+    <a class="comment_div_link comment_request" id="{{ entry.key }}" onclick="toggleDiv('{{ entry.key }}');">add a comment</a>
     </div>
     
     <div class="span-24 comment_entry_div" id="comment_entry_div_{{ entry.key }}">
     <form id="comment_form" method="post" action="{% url jaceyphotographs.views.comment_post %}">
-  
+    
     <input type="hidden" id="key" name="key" value="{{  entry.key  }}" />
     <div class="span-11 colborder" style="text-align:left">
     <p><label for="title">Name</label><br>
@@ -116,12 +124,12 @@
     <img src="/css/blueprint/plugins/buttons/icons/knobs/knob_valid_green.png" alt=""/> Post Comment
     </button>
     </div>
-  
+    
     <div class="span-12 last" style="text-align:right">
     <p><label for="comment">Comment</label><br>
     <textarea name="comment" id="comment" rows="5" cols="80"></textarea></p>
     </div>
-  
+    
     </form>
     </div>
   </div>
@@ -137,11 +145,11 @@
       &nbsp;
     {% endif %}
 	</div>
-	  
-	<div class="span-8 colborder" style="text-align:center">  
+	
+	<div class="span-8 colborder" style="text-align:center">
 	<!--{{ entries.number }} of {{ entries.paginator.num_pages }}-->&nbsp;
 	</div>
-	  
+	
 	<div class="span-7 last" style="text-align:right">
 	{% if entries.has_next %}
     <a class="link" href="?page={{ entries.next_page_number }}">Next Entries >></a>
@@ -151,6 +159,6 @@
 	</div>
   </div>
   <!-- end pagination -->
-  
+
 {% endif %}
 {% endblock %}

@@ -9,7 +9,6 @@ function additem()
   var newDiv;
   newDiv = "<hr />";
   newDiv += "<input type=\"file\" class=\"title\" name=\"image_" + itemCount.toString() + "\" id=\"image_" + itemCount.toString() + "\" value=\"\" size=\"40\"> ";
-  newDiv += "<br />"
   newDiv += "<input type=\"text\" class=\"title\" name=\"image_snippet_" + itemCount.toString()  + "\" id=\"image_snippet_" + itemCount.toString() + "\"value=\"\"> <= you can attach a short image snippet here!";
   var dynamic_item_div = document.getElementById("images");
   dynamic_item_div.innerHTML += newDiv;
@@ -60,8 +59,8 @@ function get_object_key()
   <p><label for="url">Images & Snippets</label>
     <div id="images">
     <input type="file" class="title" name="image_1" id="image_1" value="" size="40">
-    <br />
     <input type="text" class="title" name="image_snippet_1" id="image_snippet_1" value=""> <= you can attach a short image snippet here!
+    <hr />
     </div>
   </p>
 
