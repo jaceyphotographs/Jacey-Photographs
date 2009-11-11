@@ -105,9 +105,15 @@
   
   <div id="comment_div_block_{{ entry.key }}" class="span-24 comment_div_block">
     
-    <div class="span-24" style="text-align:right">
-    <!-- TODO: less kludgy string ID approach -->
-    <a class="comment_div_link comment_request" id="{{ entry.key }}" onclick="toggleDiv('{{ entry.key }}');">add a comment</a>
+    <div class="span-8">
+			<script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script>
+			<a name="fb_share" type="box_count" href="http://www.facebook.com/sharer.php">Share</a>
+			<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+	</div>
+	<div class="span-8">&nbsp;</div>
+	<div class="span-8 last" style="text-align:right">
+	  <!-- TODO: less kludgy string ID approach -->    
+	  <a class="comment_div_link comment_request" id="{{ entry.key }}" onclick="toggleDiv('{{ entry.key }}');">add a comment</a>
     </div>
     
     <div class="span-24 comment_entry_div" id="comment_entry_div_{{ entry.key }}">
