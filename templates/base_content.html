@@ -106,9 +106,13 @@
   <div id="comment_div_block_{{ entry.key }}" class="span-24 comment_div_block">
     
     <div class="span-8">
-			<script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script>
-			<a name="fb_share" type="box_count" href="http://www.facebook.com/sharer.php">Share</a>
-			<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+	  	<script type="text/javascript">
+		username = 'jaceyphotos';
+		url = 'http://www.jaceyphotographs.com/{{ entry.published|date:"Y" }}/{{ entry.published|date:"b" }}/{{ entry.published|date:"d" }}/{{ entry.slug }}/';
+		</script>
+		<script type="text/javascript" src="http://www.retweet.com/static/retweets.js"></script>
+			<fb:share-button class="url" href="http://www.jaceyphotographs.com/{{ entry.published|date:"Y" }}/{{ entry.published|date:"b" }}/{{ entry.published|date:"d" }}/{{ entry.slug }}/"
+		      type="button"></fb:share-button>
 	</div>
 	<div class="span-8">&nbsp;</div>
 	<div class="span-8 last" style="text-align:right">
@@ -146,7 +150,7 @@
   <div class="span-24">
     <div class="span-7 colborder" style="text-align:left">
 	{% if entries.has_previous %}
-    <a class="link" href="?page={{ entries.previous_page_number }}"><< Previous Entries</a>
+    <a class="link" href="?page={{ entries.previous_page_number }}"><< See Previous Entries</a>
     {% else %}
       &nbsp;
     {% endif %}
@@ -158,7 +162,7 @@
 	
 	<div class="span-7 last" style="text-align:right">
 	{% if entries.has_next %}
-    <a class="link" href="?page={{ entries.next_page_number }}">Next Entries >></a>
+    <a class="link" href="?page={{ entries.next_page_number }}">See Next Entries >></a>
     {% else %}
       &nbsp;
     {% endif %}

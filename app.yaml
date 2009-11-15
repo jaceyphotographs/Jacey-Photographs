@@ -16,6 +16,10 @@ handlers:
   static_files: static/files/robots.txt
   upload: static/files/robots.txt
   
+- url: /xd_receiver.htm
+  static_files: static/files/xd_receiver.htm
+  upload: static/files/xd_receiver.htm
+  
 - url: /css
   static_dir: static/css
 

@@ -4,49 +4,43 @@
 
 {% block post %}
 
+<div class="24"> 
+	<div class="span-11 colborder" style="text-align:center"><br><h3><span class="alt">jacey@jaceyphotographs.com</span> | 415.347.6259<br><h4><a href="http://www.facebook.com/pages/San-Francisco-CA/Jacey-Photographs/208020780557" class="tag">Facebook</a> | <a href="http://www.twitter.com/jaceyphotos" class="tag">Twitter</a></h4></div> 
+	<div class="span-12 last" style="text-align:center"><object type="application/x-shockwave-flash"
+data="https://clients4.google.com/voice/embed/webCallButton" width="230" height="85"><param name="movie" value="https://clients4.google.com/voice/embed/webCallButton" /><param name="wmode"
+value="transparent" /><param name="FlashVars" value="id=0eab9ccacbf71fadb7a6ed923f7de95dc6dfbf51&style=0" /></object><br><br>&nbsp;</div> 
+</div>
+
+<hr>
+
 <div class="24">
 
-<div class="span-11 colborder">
+<div class="span-11 colborder" style="text-align:center"><script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US"></script><script
+type="text/javascript">FB.init("2864761bde7ec0ba2a687345a0ea8714");</script><fb:fan profile_id="208020780557" stream="" connections="10" width="300"></fb:fan><div style="font-size:8px;
+padding-left:10px"></div> </div>
 
-<form method="post" action="{% url jaceyphotographs.views.email_jacey %}">
+</div>
 
-<fieldset>
-<legend>Email Me</legend>
+<div class="span-12 last"> <form method="post" action="{% url jaceyphotographs.views.email_jacey %}">
 
-  {% for error in form.title.errors %}
-    <div class="error">{{ error }}</div>
-  {% endfor %}
-  <p><label for="name">Name</label><br>
-  <input type="text" class="title" name="sender_name" id="sender_name" value=""></p>
-  
-  {% for error in form.tags.errors %}
-    <div class="error">{{ error }}</div>
-  {% endfor %}
-  <p><label for="email">Email</label><br>
-  <input type="text" class="title" name="sender_email" id="sender_email" value=""></p>
-  
-  {% for error in form.tags.errors %}
-    <div class="error">{{ error }}</div>
-  {% endfor %}
-  <p><label for="subject">Subject</label><br>
-  <input type="text" class="title" name="sender_subject" id="sender_subject" value=""></p>
-  
-  {% for error in form.description.errors %}
-    <div class="error">{{ error }}</div>
-  {% endfor %}
-  <p><label for="message">Message</label><br>
-  <textarea name="sender_message" id="sender_message" rows="5" cols="80"></textarea></p>
+<fieldset> <legend>Shoot me an email!</legend>
 
-  <button type="submit" class="button positive">
-    <img src="/css/blueprint/plugins/buttons/icons/tick.png" alt=""/> Send
-  </button>
+ {% for error in form.title.errors %} <div class="error">{{ error }}</div> {% endfor %} <p><label for="name">Name</label><br> <input type="text" class="title" name="sender_name"
+id="sender_name" value=""></p>
+
+ {% for error in form.tags.errors %} <div class="error">{{ error }}</div> {% endfor %} <p><label for="email">Email</label><br> <input type="text" class="title" name="sender_email"
+id="sender_email" value=""></p>
+
+ {% for error in form.tags.errors %} <div class="error">{{ error }}</div> {% endfor %} <p><label for="subject">Subject</label><br> <input type="text" class="title" name="sender_subject"
+id="sender_subject" value=""></p>
+
+ {% for error in form.description.errors %} <div class="error">{{ error }}</div> {% endfor %} <p><label for="message">Message</label><br> <textarea name="sender_message" id="sender_message"
+rows="5" cols="80"></textarea></p>
+
+ <button type="submit" class="button positive"> <img src="/css/blueprint/plugins/buttons/icons/knobs/knob_valid_green.png" alt=""/> Send </button>
 
 </fieldset>
 
-</form>
+</form> 
 
-</div>
-<div class="span-12 last">
-  <object type="application/x-shockwave-flash" data="https://clients4.google.com/voice/embed/webCallButton" width="230" height="85"><param name="movie" value="https://clients4.google.com/voice/embed/webCallButton" /><param name="wmode" value="transparent" /><param name="FlashVars" value="id=0eab9ccacbf71fadb7a6ed923f7de95dc6dfbf51&style=0" /></object>
-</div>
-{% endblock %}
+</div> {% endblock %}
