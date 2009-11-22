@@ -2,7 +2,7 @@ from appengine_django.models import BaseModel
 from google.appengine.ext import db
 
 class BlogEntry(BaseModel):  
-  published = db.DateProperty(auto_now_add=True)
+  published = db.DateTimeProperty(auto_now_add=True)
   title = db.StringProperty(required=True)
   tags = db.StringListProperty()
   description = db.TextProperty()
@@ -28,7 +28,7 @@ class BlogEntry(BaseModel):
     return self.description
     
 class BlogEntryComment(BaseModel):  
-  published = db.DateProperty(auto_now_add=True)
+  published = db.DateTimeProperty(auto_now_add=True)
   name = db.StringProperty(required=True)
   email = db.StringProperty()
   comment = db.TextProperty()
