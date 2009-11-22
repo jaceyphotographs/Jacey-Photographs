@@ -39,7 +39,7 @@
   <div class="span-24">
     <!-- entry title, tags -->
     {% for entry in entries.object_list %}
-      <div class="span-20 colborder"><a class="entry_title" href="/admin/post/edit/{{entry.key}}">{{entry.title}}</a> | {{ entry.published|date:"D d M Y | H:i:s"|lower }}</div>
+      <div class="span-20 colborder"><a class="entry_title" href="/admin/post/edit/{{entry.key}}">{{entry.title}}</a> | {{ entry.published|date:"D d M Y | h:i:s"|lower }}</div>
       <div class="span-3 last" id="blog_entry_div_{{entry.key}}" style="text-align:right">
         <form id="blog_entry_delete_form" method="post" action="{% url jaceyphotographs.views.blog_entry_delete %}">
           <input type="hidden" id="key" name="key" value="{{ entry.key }}"/>
