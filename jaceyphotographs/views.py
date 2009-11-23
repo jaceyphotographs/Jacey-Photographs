@@ -69,20 +69,20 @@ def slug(request, slug):
 def archive_day(request, year, month, day):  
   requested_date = datetime.date(int(year), MONTHS[month], int(day))
   following_date = requested_date + datetime.timedelta(days=1)
-  entries_list = db.Query(BlogEntry).filter('published >=', requested_date).filter('published <', following_date)
+  entries_list = db.Query(BlogEntry).filter('published >=', requested_date).filter('published <', following_date).order(-published)
   return generated_template_response(request, entries_list, 'base_content.html', STANDARD_PAGINATION)
   
   
 # Hackable URL: year and month
 def archive_month(request, year, month):
   published = datetime.date(int(year), MONTHS[month], 1)
-  entries_list = db.Query(BlogEntry).filter('published >=', published).filter('published <=', datetime.date(int(year), MONTHS[month], calendar.mdays[published.month]))
+  entries_list = db.Query(BlogEntry).filter('published >=', published).filter('published <=', datetime.date(int(year), MONTHS[month], calendar.mdays[published.month])).order('-published')
   return generated_template_response(request, entries_list, 'base_content.html', STANDARD_PAGINATION)
   
 # Hackable URL: year only
 def archive_year(request, year):
   published = datetime.date(int(year), 1, 1)
-  entries_list = db.Query(BlogEntry).filter('published >=', published).filter('published <=', datetime.date(int(year), 12, 31))
+  entries_list = db.Query(BlogEntry).filter('published >=', published).filter('published <=', datetime.date(int(year), 12, 31)).order('-published')
   return generated_template_response(request, entries_list, 'base_content.html', STANDARD_PAGINATION)
   
   
