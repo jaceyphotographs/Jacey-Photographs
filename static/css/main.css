@@ -112,4 +112,6 @@ blockquote div {
   display:inline;
 }
 
-
+.comment_div_link {
+  cursor: pointer;
+}
