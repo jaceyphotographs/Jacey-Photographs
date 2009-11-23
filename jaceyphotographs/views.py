@@ -67,8 +67,9 @@ def slug(request, slug):
   
 # Hackable URL: year, month, day
 def archive_day(request, year, month, day):  
-  published = datetime.date(int(year), MONTHS[month], int(day))
-  entries_list = db.Query(BlogEntry).filter('published =', published)
+  requested_date = datetime.date(int(year), MONTHS[month], int(day))
+  following_date = requested_date + datetime.timedelta(days=1)
+  entries_list = db.Query(BlogEntry).filter('published >=', requested_date).filter('published <', following_date)
   return generated_template_response(request, entries_list, 'base_content.html', STANDARD_PAGINATION)
   
   
